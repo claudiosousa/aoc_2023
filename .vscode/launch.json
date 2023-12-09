@@ -1,0 +1,32 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Node",
+      "cwd": "${fileDirname}",
+      "type": "node",
+      "request": "launch",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "program": "${file}"
+    },
+    {
+      "name": "Deno",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${fileDirname}",
+      "runtimeExecutable": "deno",
+      "outputCapture": "std",
+      "runtimeArgs": [
+        "run",
+        "-A",
+        "${file}"
+      ],
+      "attachSimplePort": 9229
+    }
+  ]
+}
