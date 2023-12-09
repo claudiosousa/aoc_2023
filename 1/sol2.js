@@ -2,8 +2,6 @@ import { promises as fs } from 'node:fs';
 
 const lines = (await fs.readFile('./input.txt', 'utf-8')).toString().split('\n');
 
-const numbers = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-
 let sum = 0;
 for (let line of lines) {
     let first = Number.MAX_SAFE_INTEGER, firstD, last = -1, lastD;
@@ -19,7 +17,6 @@ for (let line of lines) {
             last = lastIdx;
         }
     }
-    console.log(line + ": "+firstD + "" + lastD)
     sum += parseInt( firstD + "" + lastD);
 }
 
