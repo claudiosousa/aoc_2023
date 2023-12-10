@@ -6,10 +6,11 @@ const caracters = lines.map(l => l.split(''));
 const specialChars = caracters.flatMap((row, ir) =>
     row.map((c, ic) => c != '.' && (c < '0' || c > '9') ? [ir, ic] : null)
         .filter(v => v));
-// console.log(specialChars);
+
 const numbersSum = lines.flatMap((row, ir) =>
     [...row.matchAll(/\d+/g)].filter(match =>
-        specialChars.some(([cr, cc]) => Math.abs(cr - ir) <= 1 && cc >= match.index - 1 && cc <= match.index + match['0'].length + 1)
+        specialChars.some(([cr, cc]) => Math.abs(cr - ir) <= 1 && cc >= match.index - 1 && cc <= match.index + match['0'].length)
     )
         .map(match => parseInt(match['0'])));
+
 console.log(numbersSum.reduce((acc, v) => acc + v, 0));
