@@ -1,4 +1,3 @@
-import { match } from 'node:assert';
 import { promises as fs } from 'node:fs';
 
 const lines = (await fs.readFile('./input.txt', 'utf-8')).toString().split('\n');
