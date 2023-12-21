@@ -15,6 +15,15 @@
       "program": "${file}"
     },
     {
+      "type": "node",
+      "request": "launch",
+      "name": "Typescript",
+      "cwd": "${fileDirname}",
+      "program": "${file}",
+      "preLaunchTask": "tsc: build - tsconfig.json",
+      "outFiles": ["${workspaceFolder}/out/**/*.js"]
+    },
+    {
       "name": "Deno",
       "type": "node",
       "request": "launch",

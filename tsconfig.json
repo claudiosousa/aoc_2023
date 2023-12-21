@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "types": [
+            "node"
+        ],
+        "target": "ES2015",
+        "lib": [
+            //"ES2018",
+            "DOM"
+        ],
+        //"module": "CommonJS",
+        "module": "NodeNext",
+
+        "outDir": "out",
+        "sourceMap": true
+    }
+}
