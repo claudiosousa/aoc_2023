@@ -1,5 +1,7 @@
-import { promises as fs } from 'node:fs';
-const map = (await fs.readFile('./input.txt', 'utf-8')).toString().split('\n').map(l => l.split(''));
+import { readFileSync } from 'node:fs';
+//import { readFileSync } from 'fs';
+
+const map = readFileSync('./input.txt', 'utf-8').toString().split('\n').map(l => l.split(''));
 
 enum Direction { Down = 1, Up = Direction.Down ^ 4, Left = 2, Right = Direction.Left ^ 4 };
 
@@ -14,8 +16,6 @@ const getPipeDirections = pipe => {
         case '.': return null;
     }
 };
-
-
 
 const getNextDirection = (x: number, y: number, incomingDirection: Direction) => {
     let pipe = map[y][x];
@@ -53,6 +53,24 @@ const getNewPosWithDirection = (x: number, y: number, direction: Direction) => {
     return [x, y];
 }
 
+let [startPosX, startPosY] = <number[]>map.reduce((res, line, row) => {
+    if (res)
+        return res;
+    let col = line.findIndex(c => c == 'S');
+    return col >= 0 ? [col, row] : null;
+}, null);
+
+const getCadrant = (x, y) => {
+    if (x < startPosX && y <= startPosY)
+        return 1;
+    if (x >= startPosX && y < startPosY)
+        return 2;
+    if (x <= startPosX && y > startPosY)
+        return 4;
+    if (x > startPosX && y >= startPosY)
+        return 3;
+}
+
 const getLoopLengthFromPos = (x: number, y: number, steps: number, incomingDirection: Direction, walkedPath: Direction[]) => {
     while (map[y][x] != 'S') {
 
@@ -61,33 +79,26 @@ const getLoopLengthFromPos = (x: number, y: number, steps: number, incomingDirec
         if (!isValidPos(x, y))
             return;
 
-        walkedPath.push(nextDirection);
-        steps++; incomingDirection = nextDirection ^ 4;
+        walkedPath.push([nextDirection, getCadrant(x, y)]);
 
+        steps++;
+        incomingDirection = nextDirection ^ 4;
     }
     return steps;
 }
-
 const getLoopLength = () => {
-    let [x, y] = map.reduce((res, line, row) => {
-        if (res)
-            return res;
-        let col = line.findIndex(c => c == 'S');
-        return col >= 0 ? [col, row] : null;
-    }, null);
-
-    //console.log('Start pos', x, y);
+    //console.log('Start pos', startPosX, startPosY);
     for (let direction of [Direction.Down, Direction.Up, Direction.Left, Direction.Right]) {
-        [x, y] = getNewPosWithDirection(x, y, direction);
+        let [x, y] = getNewPosWithDirection(startPosX, startPosY, direction);
 
         if (!isValidPos(x, y))
             continue;
 
-        let walkedPath = [direction];
+        let walkedPath = [[direction, getCadrant(x, y)]];
 
         let loopLength = getLoopLengthFromPos(x, y, 1, direction ^ 4, walkedPath);
         if (loopLength) {
-            //console.log(walkedPath)
+            //console.table(walkedPath)
             return Math.ceil(loopLength / 2);
         }
     }
