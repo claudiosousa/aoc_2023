@@ -91,6 +91,7 @@ const getLoopLengthFromPos = (x: number, y: number, steps: number, incomingDirec
         steps++;
         incomingDirection = nextDirection ^ 4;
     }
+    // @ts-ignore
     return steps;
 }
 const getLoopLength = () => {
@@ -107,6 +108,7 @@ const getLoopLength = () => {
 
         let loopLength = getLoopLengthFromPos(x, y, 1, direction ^ 4, walkedPos, walkedDirections, walkedCadrants);
         if (loopLength) {
+            // @ts-ignore
             return [walkedPos, walkedDirections, walkedCadrants, Math.ceil(loopLength / 2)];
         }
     }
@@ -144,6 +146,7 @@ const fillContinousInnerCells = (usedMap, insideCellX, insideCellY, filled = 0) 
 
 const fillInsideArea = (): [number[][], number] => {
     let usedMap = map.map(l => l.map(_ => 0));
+    // @ts-ignore
     for (let i = 0; i < walkedPos.length; i++) {
         let [x, y] = walkedPos[i];
         usedMap[y][x] = 1;
@@ -165,9 +168,11 @@ const fillInsideArea = (): [number[][], number] => {
     };
 
     let filledCells = 0;
+    // @ts-ignore
     for (let i = 0; i < walkedPos.length - 1; i++) {
         let direction = walkedDirections[i];
         filledCells += fillCellInside(i, direction);
+        // @ts-ignore
         if (i < walkedPos.length - 2) {
             let nextDirection = walkedDirections[i + 1];
             if (direction != nextDirection)

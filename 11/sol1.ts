@@ -29,7 +29,8 @@ for (let i = 0; i < galaxies.length; i++) {
     const gi = galaxies[i];
     for (let j = i + 1; j < galaxies.length; j++) {
         const gj = galaxies[j];
-        totalDist += Math.abs(gi[0] - gj[0]) + Math.abs(gi[1] - gj[1])
+           // @ts-ignore
+           totalDist += Math.abs(gi[0] - gj[0]) + Math.abs(gi[1] - gj[1])
     }
 } 
 console.log(totalDist);
