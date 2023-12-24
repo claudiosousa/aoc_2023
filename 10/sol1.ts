@@ -79,8 +79,8 @@ const getLoopLengthFromPos = (x: number, y: number, steps: number, incomingDirec
         if (!isValidPos(x, y))
             return;
 
-              // @ts-ignore
-  walkedPath.push([nextDirection, getCadrant(x, y)]);
+        // @ts-ignore
+        walkedPath.push([nextDirection, getCadrant(x, y)]);
 
         steps++;
         incomingDirection = nextDirection ^ 4;
