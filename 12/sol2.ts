@@ -31,7 +31,7 @@ const isValidArrangement = (springs, md) => {
     return cur == 0 && imd == md.length;
 }
 
-function arrangements(springs:string[], md:number[], i = 0) {
+function arrangements(springs: string[], md: number[], i = 0) {
     if (i >= springs.length)
         return isValidArrangement(springs, md) ? 1 : 0;
     if (springs[i] == '?') {
@@ -44,4 +44,5 @@ function arrangements(springs:string[], md:number[], i = 0) {
     }
     return arrangements(springs, md, i + 1);
 }
+// @ts-ignore
 console.log(lines.reduce((s, [l, md]) => s + arrangements(l, md), 0));
