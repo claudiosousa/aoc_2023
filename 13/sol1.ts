@@ -17,16 +17,15 @@ const areColumnsReflection = (icol, map) => {
 }
 
 const areRowsReflection = (irow, map) => {
-    let smudges = 0;
     for (let i = 0; i <= irow; i++) {
         if (i + irow + 1 >= map.length)
             break;
         for (let j = 0; j < map[0].length; j++) {
             if (map[irow - i][j] != map[irow + i + 1][j])
-                smudges++;
+                return false;
         }
     }
-    return smudges == 1;
+    return true;
 }
 
 const colsRowsBeforeReflection = map => {
