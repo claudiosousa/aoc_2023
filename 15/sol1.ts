@@ -13,5 +13,4 @@ const hash = (s: string) => {
     return v;
 }
 
-//console.log(instructions.map(step => hash(step)));
 console.log(instructions.map(step => hash(step)).reduce((sum, v) => sum + v, 0));
